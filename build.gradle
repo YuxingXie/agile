@@ -1,0 +1,47 @@
+group 'com.lingyun'
+version '1.0-SNAPSHOT'
+buildscript {
+    repositories {
+        mavenLocal()
+        maven{ url 'http://192.168.1.118:8081/nexus/content/repositories/central'}
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.9.RELEASE")
+    }
+}
+
+allprojects {
+    gradle.projectsEvaluated {
+        tasks.withType(JavaCompile) {
+            options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+        }
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+
+jar {
+    baseName = 'lingyun-agile'
+    version =  '0.1.0'
+}
+repositories {
+    mavenLocal()
+    maven{ url 'http://192.168.1.118:8081/nexus/content/repositories/central'}
+    mavenCentral()
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+
+//   compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.thymeleaf:thymeleaf-spring4")
+    compile("org.springframework.boot:spring-boot-starter-actuator")
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+
+}
